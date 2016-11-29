@@ -1,0 +1,48 @@
+    var params = {
+        // Request parameters
+        "returnFaceId": "true",
+        "returnFaceLandmarks": "false",
+    };
+
+    $.ajax({
+        url: "https://api.projectoxford.ai/face/v1.0/detect?" + $.param(params),
+        beforeSend: function (xhrObj) {
+            // Request headers
+            xhrObj.setRequestHeader("Content-Type", "application/json");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "3ce50159bc674b818c7a47756f8f9f61");
+        },
+        type: "POST",
+        // Request body
+        data: '{"url":"' + fileLoc + '"}',
+    })
+        .done(function (data) {
+            console.log(data);
+            var text = data[0];
+            var faceId2 = text.faceId;
+            console.log(faceId1);
+                var params = {
+        // Request parameters
+    };
+
+    $.ajax({
+        url: "https://api.projectoxford.ai/face/v1.0/verify",
+        beforeSend: function (xhrObj) {
+            // Request headers
+            xhrObj.setRequestHeader("Content-Type", "application/json");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "3ce50159bc674b818c7a47756f8f9f61");
+        },
+        type: "POST",
+        // Request body
+        data: "{body}",
+    })
+    .done(function (data) {
+        alert("success");
+    })
+    .fail(function () {
+        alert("error");
+    });
+        })
+.fail(function (data) {
+    alert("Your Face is Detected. Please Try Again");
+    console.log(data);
+});
