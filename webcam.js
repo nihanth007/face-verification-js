@@ -38,7 +38,6 @@ function saveImg(dataUrl, pin) {
         data: dataString,
         cache: false,
         success: function (result) {
-            console.log(result);
             var fileLoc = 'https://face-verification.azurewebsites.net/temp/' + fileName + '.png';
             console.log(fileLoc);
             detect(fileLoc);
@@ -100,7 +99,7 @@ function verify(faceId1) {
             console.log(data);
             var text = data[0];
             var faceId2 = text.faceId;
-            console.log(faceId1);
+            console.log(faceId2);
             var senddata = '{"faceId1":"' + faceId1 + '","faceId2":"' + faceId2 + '"}';
             var params = {
                 // Request parameters
@@ -117,11 +116,17 @@ function verify(faceId1) {
                 data: senddata,
             })
             .done(function (data) {
-                alert("You Are Successfully Verified");
-                console.log(data);
+                var text = data[0];
+                console.log(data.isIdentical);
+                if (data.isIdentical) {
+                    alert("You Are Successfully Verified");
+                }
+                else {
+                    alert("You Are not Authorised to Login with the Provided Identification Number");
+                }
             })
             .fail(function (data) {
-                alert("You Are not Authorised to Login with the Provided Identification Number");
+                alert("Verification Failed. Please Try Again Later");
                 console.log(data);
             });
         })
