@@ -126,7 +126,7 @@ function verify(faceId1) {
             });
         })
 .fail(function (data) {
-    alert("Your Face is Detected. Please Try Again");
+    alert("The Provided Identification Number does Not Exist . Please Check Try Again");
     console.log(data);
 });
 }
